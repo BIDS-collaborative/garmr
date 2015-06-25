@@ -5,7 +5,7 @@
   "authors": [
     "faassen <faassen@startifact.com>"
   ],
-  "main": "main.js",
+  "main": "main.js.jsx",
   "license": "MIT",
   "private": true,
   "ignore": [
