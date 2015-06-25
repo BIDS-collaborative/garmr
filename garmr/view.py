@@ -7,6 +7,8 @@ def root_default(self, request):
     request.include('jquery')
     request.include('react/react.js')
     request.include('react/JSXTransformer.js')
+    request.include('skeleton/skeleton.css',
+                    '<link rel="stylesheet" type="text/css" href="{url}">')
     request.include('static/main.js.jsx',
                     '<script type="text/jsx" src="{url}"></script>')
     return '''\
