@@ -5,8 +5,9 @@ var GuestForm = React.createClass({
     var title = React.findDOMNode(this.refs.title).value.trim();
     var department = React.findDOMNode(this.refs.department).value.trim();
     var email = React.findDOMNode(this.refs.email).value.trim();
+    // TODO: Better validation
     if (!name || !title || !department) {
-      alert("Name, title, and department are required!")
+      alert("Name, title, and department are required!");
       return;
     }
     // TODO: Pass this back to Morepath server
