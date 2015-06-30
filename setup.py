@@ -6,7 +6,8 @@ setup(name='garmr',
   zip_safe=False,
   install_requires=[
     'morepath',
-    'more.static'
+    'more.static',
+    'waitress',
   ],
   entry_points={
     'console_scripts': [

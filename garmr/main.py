@@ -1,9 +1,10 @@
 import morepath
 from more.static import StaticApp
 import bowerstatic
+import waitress
 
 class App(StaticApp):
-    pass
+  pass
 
 bower = bowerstatic.Bower()
 
@@ -18,9 +19,9 @@ local.component(bowerstatic.module_relative_path('skeleton'), version=None)
 
 @App.static_components()
 def get_static_components():
-    return local
+  return local
 
 def main():
-   morepath.autosetup()
-   wsgi = App()
-   morepath.run(wsgi)
+  morepath.autosetup()
+  wsgi = App()
+  waitress.serve(App())
