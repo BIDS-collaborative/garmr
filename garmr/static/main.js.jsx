@@ -10,7 +10,22 @@ var GuestForm = React.createClass({
       alert("Name, title, and department are required!");
       return;
     }
-    // TODO: Pass this back to Morepath server
+
+    var data = {name: name,
+                title: title,
+                department: department,
+                email: email};
+
+
+    $.ajax({
+        url: 'http://0.0.0.0:8080/guests/add',
+        contentType: 'application/json',
+        dataType: 'json',
+        type: 'POST',
+        processData: false,
+        data: JSON.stringify(data)
+    });
+
     React.findDOMNode(this.refs.name).value = '';
     React.findDOMNode(this.refs.title).value = '';
     React.findDOMNode(this.refs.department).value = '';
@@ -22,13 +37,13 @@ var GuestForm = React.createClass({
       <form className="GuestForm" onSubmit={this.handleSubmit}>
         <div className="row">
         </div>
-        <label for="name">Your Name*</label>
+        <label htmlFor="name">Your Name*</label>
         <input className="u-full-width" type="text" placeholder="John Tukey" ref="name" />
-        <label for="title">Title*</label>
+        <label htmlFor="title">Title*</label>
         <input className="u-full-width" type="text" placeholder="Data Scientist" ref="title" />
-        <label for="department">Department*</label>
+        <label htmlFor="department">Department*</label>
         <input className="u-full-width" type="text" placeholder="Mathematics" ref="department" />
-        <label for="email">E-mail</label>
+        <label htmlFor="email">E-mail</label>
         <input className="u-full-width" type="text" placeholder="(optional)" ref="email" />
         <input className="u-full-width button-primary" type="submit" value="Sign in" />
       </form>

@@ -1,2 +1,8 @@
+setuptools
 morepath
+waitress
+transaction
+more.transaction
+zope.sqlalchemy >= 0.7.4
+sqlalchemy >= 0.9
 more.static

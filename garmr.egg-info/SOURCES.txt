@@ -1,5 +1,6 @@
 setup.py
 garmr/__init__.py
+garmr/collection.py
 garmr/main.py
 garmr/model.py
 garmr/path.py

@@ -1,3 +1,4 @@
+import os
 from setuptools import setup, find_packages
 
 setup(name='garmr',
@@ -5,9 +6,14 @@ setup(name='garmr',
   include_package_data=True,
   zip_safe=False,
   install_requires=[
+    'setuptools',
     'morepath',
-    'more.static',
     'waitress',
+    'transaction',
+    'more.transaction',
+    'zope.sqlalchemy >= 0.7.4',
+    'sqlalchemy >= 0.9',
+    'more.static',
   ],
   entry_points={
     'console_scripts': [

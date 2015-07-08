@@ -1,6 +1,12 @@
 from .main import App
-from . import model
+from .model import Guest, Root
+from .collection import GuestCollection
+from . import model, collection
 
-@App.path(path='')
-class Root(object):
-    pass
+@App.path(model=Root, path='/')
+def get_root():
+    return Root()
+
+@App.path(model=GuestCollection, path='guests')
+def get_guest_collection(offset=0, limit=10):
+    return GuestCollection(offset, limit)
