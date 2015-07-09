@@ -6,8 +6,17 @@ var GuestForm = React.createClass({
     var department = React.findDOMNode(this.refs.department).value.trim();
     var email = React.findDOMNode(this.refs.email).value.trim();
     // TODO: Better validation
+    var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}/igm;
     if (!name || !title || !department) {
-      alert("Name, title, and department are required!");
+      toastr.info("Name, title, and department are required!");
+      return;
+    }
+    else if (/[^a-zA-Z0-9\-]/.test(name) || /[^a-zA-Z0-9\-]/.test(title) || /[^a-zA-Z0-9\-]/.test(department)) {
+      toastr.info("Name, title, and department can only contain alphanumeric characters and hyphens.");
+      return;
+    }
+    else if (email && !re.test(email)) {
+      toastr.info("E-mail must be in correct format");
       return;
     }
 
@@ -15,7 +24,6 @@ var GuestForm = React.createClass({
                 title: title,
                 department: department,
                 email: email};
-
 
     $.ajax({
         url: 'http://0.0.0.0:8080/guests/add',
@@ -30,6 +38,7 @@ var GuestForm = React.createClass({
     React.findDOMNode(this.refs.title).value = '';
     React.findDOMNode(this.refs.department).value = '';
     React.findDOMNode(this.refs.email).value = '';
+    toastr.success("Thank you!")
     return;
   },
   render: function() {

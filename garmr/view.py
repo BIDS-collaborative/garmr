@@ -9,6 +9,7 @@ def root_default(self, request):
     request.include('react/react.js')
     request.include('react/JSXTransformer.js')
     request.include('normalize-css')
+    request.include('toastr')
     request.include('skeleton/skeleton.css',
                     '<link rel="stylesheet" type="text/css" href="{url}">')
     request.include('static/main.js.jsx',
