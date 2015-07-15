@@ -25,6 +25,28 @@ def root_default(self, request):
   </body>
 </html>'''
 
+@App.html(model=GuestCollection, name="view")
+def guest_collection_default(self, request):
+    request.include('jquery')
+    request.include('react/react.js')
+    request.include('react/JSXTransformer.js')
+    request.include('normalize-css')
+    request.include('toastr')
+    request.include('skeleton/skeleton.css',
+                    '<link rel="stylesheet" type="text/css" href="{url}">')
+    request.include('static/guests.js.jsx',
+                    '<script type="text/jsx" src="{url}"></script>')
+    return '''\
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Garmr</title>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>'''
+
 @App.json(model=Guest)
 def guest_default(self, request):
     return {
@@ -36,7 +58,7 @@ def guest_default(self, request):
     }
 
 @App.json(model=GuestCollection)
-def guest_collection_default(self, request):
+def guest_collection_default_json(self, request):
     return {
         'guests': [request.view(guest) for guest in self.query()],
         'previous': request.link(self.previous(), default=None),
