@@ -6,6 +6,8 @@ var Guest = React.createClass({
         <td>{this.props.title}</td>
         <td>{this.props.department}</td>
         <td>{this.props.email}</td>
+        <td>{this.props.date}</td>
+        <td>{this.props.event}</td>
       </tr>
     )
   }
@@ -15,7 +17,8 @@ var GuestList = React.createClass({
   render: function() {
     rows = [];
     this.props.guests.forEach(function(guest) {
-      rows.push(<Guest name={guest.name} title={guest.title} department={guest.department} email={guest.email} key={guest.email} />);
+      var key = guest.id + " " + guest.email + " " + guest.event;
+      rows.push(<Guest name={guest.name} title={guest.title} department={guest.department} email={guest.email} date={guest.date} event={guest.event} key={key}/>);
     })
     return (
       <div className="row">
@@ -26,6 +29,8 @@ var GuestList = React.createClass({
               <th>Title</th>
               <th>Department</th>
               <th>E-mail</th>
+              <th>Date</th>
+              <th>Event</th>
             </tr>
           </thead>
           <tbody>
@@ -42,23 +47,49 @@ var ViewGuestPage = React.createClass({
   },
   componentDidMount: function() {
     $.ajax({
-      url: 'http://0.0.0.0:8080/guests/',
+      url: '/guests/',
       dataType: 'json',
       cache: false,
       success: function(guests) {
-        this.setState({guests: guests.guests});
+        this.setState({guests: guests.guests, next: guests.next, previous: guests.previous});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error('http://0.0.0.0:8080/guests/add', status, err.toString());
       }.bind(this)
     });
   },
+  handlePrevious: function() {
+      this.reload(this.state.previous);
+  },
+  handleNext: function() {
+      this.reload(this.state.next);
+  },
+  reload: function(url) {
+      if (url === null) {
+          return;
+      }
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        cache: false,
+        success: function(guests) {
+          this.setState({guests: guests.guests, next: guests.next, previous: guests.previous});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('http://0.0.0.0:8080/guests/add', status, err.toString());
+        }.bind(this)
+      });
+  },
   render: function() {
     return (
       <div className="guestPage">
         <div className="container">
           <h1 className="u-center">Guests</h1>
-          <GuestList guests={this.state.guests} />
+          <GuestList guests={this.state.guests} queryString={this.state.queryString}/>
+          <div className="row">
+            {this.state.previous ? <button className="u-pull-left" onClick={this.handlePrevious}>Previous</button> : false }
+            {this.state.next ? <button className="u-pull-right" onClick={this.handleNext}>Next</button> : false }
+          </div>
         </div>
       </div>
     );

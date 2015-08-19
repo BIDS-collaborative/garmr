@@ -21,3 +21,18 @@ class Guest(Base):
     title = Column(Text)
     department = Column(Text)
     email = Column(Text)
+    date = Column(Text)
+    event = Column(Text)
+
+class Event(Base):
+    __tablename__ = 'event'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(Text)
+    description = Column(Text)
+    date = Column(Text)
+    time = Column(Text)
+
+    def query_event_by_id(id, self):
+        from .main import Session
+        return Session.query(Guest.id)

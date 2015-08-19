@@ -20,13 +20,18 @@ var GuestForm = React.createClass({
       return;
     }
 
+    var date = new Date();
+    var event = null;
+
     var data = {name: name,
                 title: title,
                 department: department,
-                email: email};
+                email: email,
+                date: date.toString(),
+                event: event};
 
     $.ajax({
-        url: 'http://0.0.0.0:8080/guests/add',
+        url: '/guests/add',
         contentType: 'application/json',
         dataType: 'json',
         type: 'POST',

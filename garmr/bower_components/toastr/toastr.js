@@ -32,7 +32,6 @@
                 info: info,
                 options: {
                     positionClass: "toast-top-center",
-                    preventDuplicates: true,
                     timeOut: 2500,
                     progressBar: true,
                     showMethod: 'slideDown',

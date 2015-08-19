@@ -38,4 +38,4 @@ def main():
 
   morepath.autosetup()
   wsgi = App()
-  waitress.serve(App())
+  waitress.serve(App(), host="localhost")
