@@ -20,8 +20,6 @@ var GuestForm = React.createClass({
       return;
     }
 
-    console.log("hi");
-
     var date = new Date();
     var event = this.props.event_id;
 

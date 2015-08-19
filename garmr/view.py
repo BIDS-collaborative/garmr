@@ -25,7 +25,7 @@ def root_default(self, request):
   </body>
 </html>'''
 
-@App.html(model=GuestCollection, name="view")
+@App.html(model=GuestCollectionByEvent, name="view")
 def guest_collection_default(self, request):
     request.include('jquery')
     request.include('react/react.js')
@@ -34,7 +34,7 @@ def guest_collection_default(self, request):
     request.include('toastr')
     request.include('skeleton/skeleton.css',
                     '<link rel="stylesheet" type="text/css" href="{url}">')
-    request.include('static/guests.js.jsx',
+    request.include('static/guestsByEvent.js.jsx',
                     '<script type="text/jsx" src="{url}"></script>')
     return '''\
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ def guest_collection_default(self, request):
   </body>
 </html>'''
 
-@App.html(model=GuestCollectionByEvent, name="view")
+@App.html(model=GuestCollection, name="view")
 def guest_collection_default(self, request):
     request.include('jquery')
     request.include('react/react.js')
@@ -56,7 +56,7 @@ def guest_collection_default(self, request):
     request.include('toastr')
     request.include('skeleton/skeleton.css',
                     '<link rel="stylesheet" type="text/css" href="{url}">')
-    request.include('static/guestsByEvent.js.jsx',
+    request.include('static/guests.js.jsx',
                     '<script type="text/jsx" src="{url}"></script>')
     return '''\
 <!DOCTYPE html>
