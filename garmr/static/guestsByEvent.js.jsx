@@ -48,7 +48,7 @@ var ViewGuestPage = React.createClass({
   componentDidMount: function() {
     var eventID = window.location.toString().split("/")[4];
     $.ajax({
-      url: '/guests/' + eventID,
+      url: '/guests-by-event/' + eventID,
       dataType: 'json',
       cache: false,
       success: function(guests) {

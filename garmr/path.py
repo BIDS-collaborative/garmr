@@ -7,6 +7,15 @@ from . import model, collection
 def get_root():
     return Root()
 
+@App.path(model=GuestCollection, path='guests')
+def get_guest_collection(offset=0, limit=10):
+    return GuestCollection(offset, limit)
+
+@App.path(model=GuestCollectionByEvent, path='guests-by-event/{eventID}', converters={'eventID': int})
+def get_guest_collection_by_event(eventID, offset=0, limit=10):
+    return GuestCollectionByEvent(eventID, offset, limit)
+
+
 @App.path(model=Event, path='events/{id}', converters={'id': int})
 def get_event(id):
     session = Session()
@@ -15,11 +24,3 @@ def get_event(id):
 @App.path(model=EventCollection, path='events')
 def get_event_collection(offset=0, limit=10):
     return EventCollection(offset, limit)
-
-# @App.path(model=GuestCollectionByEvent, path='guests/by-event/{eventID}')
-# def get_guest_collection(eventID, offset=0, limit=10):
-#     return GuestCollectionByEvent(eventID, offset, limit)
-
-@App.path(model=GuestCollection, path='guests')
-def get_guest_collection(offset=0, limit=10):
-    return GuestCollection(offset, limit)

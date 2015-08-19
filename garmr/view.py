@@ -25,8 +25,30 @@ def root_default(self, request):
   </body>
 </html>'''
 
-@App.html(model=GuestCollectionByEvent, name="view")
+@App.html(model=GuestCollection, name="view")
 def guest_collection_default(self, request):
+    request.include('jquery')
+    request.include('react/react.js')
+    request.include('react/JSXTransformer.js')
+    request.include('normalize-css')
+    request.include('toastr')
+    request.include('skeleton/skeleton.css',
+                    '<link rel="stylesheet" type="text/css" href="{url}">')
+    request.include('static/guests.js.jsx',
+                    '<script type="text/jsx" src="{url}"></script>')
+    return '''\
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Garmr</title>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>'''
+
+@App.html(model=GuestCollectionByEvent, name="view")
+def guest_collection_by_event_default(self, request):
     request.include('jquery')
     request.include('react/react.js')
     request.include('react/JSXTransformer.js')
@@ -47,8 +69,8 @@ def guest_collection_default(self, request):
   </body>
 </html>'''
 
-@App.html(model=GuestCollection, name="view")
-def guest_collection_default(self, request):
+@App.html(model=Event, name="new-guest")
+def event_new_guest_default(self, request):
     request.include('jquery')
     request.include('react/react.js')
     request.include('react/JSXTransformer.js')
@@ -56,7 +78,7 @@ def guest_collection_default(self, request):
     request.include('toastr')
     request.include('skeleton/skeleton.css',
                     '<link rel="stylesheet" type="text/css" href="{url}">')
-    request.include('static/guests.js.jsx',
+    request.include('static/eventsMain.js.jsx',
                     '<script type="text/jsx" src="{url}"></script>')
     return '''\
 <!DOCTYPE html>
@@ -114,28 +136,6 @@ def event_collection_default(self, request):
   </body>
 </html>'''
 
-@App.html(model=Event, name="new-guest")
-def event_new_guest_default(self, request):
-    request.include('jquery')
-    request.include('react/react.js')
-    request.include('react/JSXTransformer.js')
-    request.include('normalize-css')
-    request.include('toastr')
-    request.include('skeleton/skeleton.css',
-                    '<link rel="stylesheet" type="text/css" href="{url}">')
-    request.include('static/eventsMain.js.jsx',
-                    '<script type="text/jsx" src="{url}"></script>')
-    return '''\
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Garmr</title>
-  </head>
-  <body>
-    <div id="main"></div>
-  </body>
-</html>'''
-
 @App.json(model=Guest)
 def guest_default(self, request):
     return {
@@ -146,16 +146,6 @@ def guest_default(self, request):
         'email': self.email,
         'date': self.date,
         'event': self.event
-    }
-
-@App.json(model=Event)
-def event_default(self, request):
-    return {
-        'id': self.id,
-        'name': self.name,
-        'description': self.description,
-        'date': self.date,
-        'time': self.time
     }
 
 @App.json(model=GuestCollection)
@@ -173,8 +163,17 @@ def guest_collection_by_event_default_json(self, request):
         'guests': [request.view(guest) for guest in self.query()],
         'previous': request.link(self.previous(), default=None),
         'next': request.link(self.next(), default=None),
-        'add': request.link(self, 'add'),
         }
+
+@App.json(model=Event)
+def event_default(self, request):
+    return {
+        'id': self.id,
+        'name': self.name,
+        'description': self.description,
+        'date': self.date,
+        'time': self.time
+    }
 
 @App.json(model=EventCollection)
 def event_collection_default_json(self, request):
