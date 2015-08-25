@@ -11,7 +11,7 @@ var GuestForm = React.createClass({
       toastr.info("Name, title, and department are required!");
       return;
     }
-    else if (/[^a-zA-Z0-9\-\s]/.test(name) || /[^a-zA-Z0-9\-\s]/.test(title) || /[^a-zA-Z0-9\-\s]/.test(department)) {
+    else if (/[^a-zA-Z0-9\-\s]/.test(name) || /[^a-zA-Z0-9\-\s]/.test(title) || /[^a-zA-Z0-9\-\/\s]/.test(department)) {
       toastr.info("Name, title, and department can only contain alphanumeric characters and hyphens.");
       return;
     }
